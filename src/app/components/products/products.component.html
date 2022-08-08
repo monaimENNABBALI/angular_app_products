@@ -1,0 +1,68 @@
+<div class="container mt-5">
+  <div class="btn-group">
+    <button type="button" (click)="getAllProducts()" class="btn btn-primary">All</button>
+    <button type="button" (click)="getProductsSelected()" class="btn btn-primary">Selected</button>
+    <button type="button" (click)="getProductsAvailable()" class="btn btn-primary">Available</button>
+    <div style="margin-left: 300px;">
+      <form class="d-flex" #f="ngForm" (ngSubmit)="Onsearch(f.value)">
+        <input ngModel name="valueSearch" class="form-control me-2" type="text" placeholder="Search">
+        <button class="btn btn-primary" type="button">Search</button>
+      </form>
+    </div>
+  </div>
+  <button style="margin-left: 5%;" type="button" (click)="newProduct()" class="btn btn-primary">New</button>
+</div>
+<div *ngIf="products | async as result" [ngSwitch]="result.dataState">
+<div *ngSwitchCase="'LOADING'">
+<div class="container mt-5">LOADING</div>
+</div>
+<div *ngSwitchCase="'LOADED'">
+    <div class="container mt-5">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>selected</th>
+            <th>available</th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of result.data">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.selected}}</td>
+            <td>{{item.available}}</td>
+            <td>
+            <button (click)="Onselect(item)" [ngClass]="item.selected?'btn btn-success':'btn btn-danger'">
+              <span *ngIf="item.selected">unselect</span>
+              <span *ngIf="!item.selected">select</span>
+            </button>
+            <button class="btn btn-warning mx-3" (click)="delete(item)">Delete</button>
+            <button class="btn btn-info mx-3" (click)="edit(item)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<div *ngSwitchCase="'ERROR'">
+  <div >
+    <div class="container mt-5">
+      <div class="alert alert-success alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>failed! </strong>{{result.errorMessage}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+

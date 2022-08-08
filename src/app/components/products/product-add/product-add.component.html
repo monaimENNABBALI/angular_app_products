@@ -1,0 +1,34 @@
+<form class="w-25 mx-auto mt-5" action="" [formGroup]="ProductformGroup" *ngIf="ProductformGroup" >
+  {{ProductformGroup.value|json}}
+  <div class="mb-3 mt-3">
+    <label for="name" class="form-label">name:</label>
+    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" formControlName="name" [ngClass]="{
+      'is-invalid':submitted && ProductformGroup.controls.name.errors
+    }">
+    <div class="invalid-feedback" *ngIf="submitted && ProductformGroup.controls['name'].errors.required">Please fill out this field.</div>
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">price:</label>
+    <input type="text" class="form-control" id="price" placeholder="Enter price" name="price" formControlName="price" [ngClass]="{
+      'is-invalid':submitted && ProductformGroup.controls['price'].errors
+    }">
+    <div class="invalid-feedback" *ngIf="submitted && ProductformGroup.controls['price'].errors.required">Please fill out this field.</div>
+  </div>
+  <div class="mb-3">
+    <label for="quantity" class="form-label">quantity:</label>
+    <input type="text" class="form-control" id="quantity" placeholder="Enter quantity" name="quantity" formControlName="quantity" [ngClass]="{
+      'is-invalid':submitted && ProductformGroup.controls['quantity'].errors
+    }">
+    <div class="invalid-feedback" *ngIf="submitted && ProductformGroup.controls['quantity'].errors.required">Please fill out this field.</div>
+  </div>
+  <div class="form-check mb-3">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" name="selected" formControlName="selected">Selected
+    </label>
+  </div><div class="form-check mb-3">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" name="available" formControlName="available">Available
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="saveProduct()">save</button>
+</form>

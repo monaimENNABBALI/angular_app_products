@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Computer",
+      "price": "4300",
+      "quantity": 600,
+      "selected": true,
+      "available": "true"
+    },
+    {
+      "id": 2,
+      "name": "Printer",
+      "price": "5200",
+      "quantity": 200,
+      "selected": false,
+      "available": "true"
+    },
+    {
+      "id": 3,
+      "name": "playstation",
+      "price": "6700",
+      "quantity": 120,
+      "selected": true,
+      "available": "false"
+    }
+  ]
+}
