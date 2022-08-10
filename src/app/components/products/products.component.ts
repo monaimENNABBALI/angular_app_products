@@ -1,9 +1,10 @@
-import { Product } from './../../model/product';
-import { AppDataState } from './../../state/app-data-state';
-import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { Component, OnInit} from '@angular/core';
-import { ProductsService } from 'src/app/services/products.service';
-import { Router } from '@angular/router';
+import {Product} from './../../model/product';
+import {AppDataState} from './../../state/app-data-state';
+import {catchError, map, Observable, of, startWith} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {ProductsService} from 'src/app/services/products.service';
+import {Router} from '@angular/router';
+import {ActionEvent, ProductActionsTypes} from "../../state/product-actions-types";
 
 @Component({
   selector: 'app-products',
@@ -75,5 +76,23 @@ this.products=this.productService.getAllProducts().pipe(
   }
   edit(item:Product){
     this.router.navigateByUrl("/editProduct/"+item.id);
+  }
+
+  NavAction($event: ActionEvent) {
+      switch ($event.type) {
+        case ProductActionsTypes.GET_ALL_PRODUCTS:this.getAllProducts();break;
+        case ProductActionsTypes.GET_SELECTED_PRODUCTS:this.getProductsSelected();break;
+        case ProductActionsTypes.GET_AVAILABLE_PRODUCTS:this.getProductsAvailable();break;
+        case ProductActionsTypes.SEARCH_PRODUCTS:this.Onsearch($event.payload);break;
+        case ProductActionsTypes.NEW_PRODUCTS:this.newProduct();break;
+      }
+  }
+
+  ListAction($event: ActionEvent) {
+    switch ($event.type) {
+      case ProductActionsTypes.SELECT_PRODUCT:this.Onselect($event.payload);break;
+      case ProductActionsTypes.DELETE_PRODUCT:this.delete($event.payload);break;
+      case ProductActionsTypes.EDIT_PRODUCT:this.edit($event.payload);break;
+    }
   }
 }

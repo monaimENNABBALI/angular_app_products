@@ -2,7 +2,7 @@
   "products": [
     {
       "id": 1,
-      "name": "Computer",
+      "name": "Computer4",
       "price": "4300",
       "quantity": 600,
       "selected": true,
@@ -23,6 +23,14 @@
       "quantity": 120,
       "selected": true,
       "available": "false"
+    },
+    {
+      "id": 5,
+      "name": "iphone Xs",
+      "price": "7900",
+      "quantity": "34",
+      "selected": true,
+      "available": false
     }
   ]
 }

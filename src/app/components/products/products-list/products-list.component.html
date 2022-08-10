@@ -1,0 +1,37 @@
+<div *ngIf="productsInput | async as result" [ngSwitch]="result.dataState">
+  <div *ngSwitchCase="'LOADING'">
+    <div class="container mt-5">LOADING</div>
+  </div>
+  <div *ngSwitchCase="'LOADED'">
+    <div class="container mt-5">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>price</th>
+          <th>quantity</th>
+          <th>selected</th>
+          <th>available</th>
+          <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <app-product-item *ngFor="let item of result.data" [product]="item" (ProductItemEventEmitter)="onActionItem($event)" style="display: contents;"></app-product-item>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngSwitchCase="'ERROR'">
+    <div >
+      <div class="container mt-5">
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <strong>failed! </strong>{{result.errorMessage}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

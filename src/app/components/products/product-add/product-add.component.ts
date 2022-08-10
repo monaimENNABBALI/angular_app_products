@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from 'src/app/services/products.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-add',
@@ -11,7 +12,7 @@ export class ProductAddComponent implements OnInit {
 
   ProductformGroup?:any;
   submitted:boolean=false;
-  constructor(private fb:FormBuilder,private productService:ProductsService) {
+  constructor(private fb:FormBuilder,private productService:ProductsService,private router:Router) {
 
   }
 
@@ -31,7 +32,8 @@ export class ProductAddComponent implements OnInit {
       return;
     }else{
       this.productService.saveProduct(this.ProductformGroup.value).subscribe(()=>{
-      })
+      });
+      this.router.navigateByUrl("/products");
     }
 
   }

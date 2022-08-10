@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <div class="btn-group">
+    <button type="button" (click)="getAllProducts()" class="btn btn-primary">All</button>
+    <button type="button" (click)="getProductsSelected()" class="btn btn-primary">Selected</button>
+    <button type="button" (click)="getProductsAvailable()" class="btn btn-primary">Available</button>
+    <div style="margin-left: 300px;">
+      <form class="d-flex" #f="ngForm" (ngSubmit)="search(f.value)">
+        <input ngModel name="valueSearch" class="form-control me-2" type="text" placeholder="Search">
+        <input type="submit" class="btn btn-primary" value="Search">
+      </form>
+    </div>
+  </div>
+  <button style="margin-left: 5%;" type="button" (click)="newProduct()" class="btn btn-primary">New</button>
+</div>
