@@ -1,7 +1,9 @@
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ProductsService } from './../../../services/products.service';
-import { Component, OnInit } from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {ProductsService} from './../../../services/products.service';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {EventDriverService} from "../../../state/event.driver.service";
+import {ProductActionsTypes} from "../../../state/product-actions-types";
 
 @Component({
   selector: 'app-product-edit',
@@ -12,7 +14,10 @@ export class ProductEditComponent implements OnInit {
   formGroup?:any;
   ProductId:number;
   submitted=false;
-  constructor(private routActivted:ActivatedRoute,private ProductService:ProductsService,private fb:FormBuilder,private router:Router) {
+  constructor(private routActivted:ActivatedRoute,private ProductService:ProductsService,
+              private fb:FormBuilder,private router:Router,
+              private EventDriver:EventDriverService
+              ) {
     this.ProductId=this.routActivted.snapshot.params['id'];
    }
 
@@ -29,7 +34,9 @@ export class ProductEditComponent implements OnInit {
     })
   }
   editProduct(){
-    this.ProductService.editProduct(this.formGroup.value).subscribe(()=>{})
+    this.ProductService.editProduct(this.formGroup.value).subscribe(()=>{
+      this.EventDriver.publishEvent({type:ProductActionsTypes.PRODUCT_UPDATED});
+    })
     this.router.navigateByUrl("/products");
   }
 }

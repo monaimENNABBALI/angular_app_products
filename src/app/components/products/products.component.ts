@@ -5,6 +5,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProductsService} from 'src/app/services/products.service';
 import {Router} from '@angular/router';
 import {ActionEvent, ProductActionsTypes} from "../../state/product-actions-types";
+import {EventDriverService} from "../../state/event.driver.service";
 
 @Component({
   selector: 'app-products',
@@ -13,9 +14,13 @@ import {ActionEvent, ProductActionsTypes} from "../../state/product-actions-type
 })
 export class ProductsComponent implements OnInit {
   products:Observable<AppDataState<Product[]>>|null=null;
-  constructor(private productService:ProductsService,private router:Router) { }
+  constructor(private productService:ProductsService,private router:Router,private eventDriver:EventDriverService) { }
 
   ngOnInit(): void {
+    this.eventDriver.sourceEventSubjectObservable.subscribe((event)=>{
+      this.NavAction(event);
+      this.ListAction(event);
+    })
   }
   getAllProducts(){
 this.products=this.productService.getAllProducts().pipe(
